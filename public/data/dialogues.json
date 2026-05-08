@@ -1,0 +1,51 @@
+{
+  "dialogue_inspector": {
+    "speaker": "Inspector",
+    "lines": [
+      "Tickets ready? The hills are waiting beyond the station.",
+      "Follow the line carefully, Tenzing. Every stop has a story."
+    ]
+  },
+  "dialogue_boatman": {
+    "speaker": "Boatman",
+    "lines": [
+      "Mirik Lake is calm today.",
+      "Even quiet water remembers the mountains."
+    ]
+  },
+  "dialogue_old_traveler": {
+    "speaker": "Old Traveler",
+    "lines": [
+      "Rohini road bends like an old song.",
+      "Walk slowly and the mist will show you the way."
+    ]
+  },
+  "dialogue_tea_worker": {
+    "speaker": "Tea Worker",
+    "lines": [
+      "The tea gardens wake before the town does.",
+      "Darjeeling is best understood one careful step at a time."
+    ]
+  },
+  "dialogue_monk": {
+    "speaker": "Monk",
+    "lines": [
+      "At Ghoom, the clouds feel close enough to touch.",
+      "Listen before you climb higher."
+    ]
+  },
+  "dialogue_guide_trail": {
+    "speaker": "Guide",
+    "lines": [
+      "The Sandakphu trail is beautiful, but it asks for patience.",
+      "Keep your breath steady and your eyes on the ridge."
+    ]
+  },
+  "dialogue_guide_summit": {
+    "speaker": "Guide",
+    "lines": [
+      "You made it to the summit.",
+      "From here, the clouds are not above you anymore."
+    ]
+  }
+}

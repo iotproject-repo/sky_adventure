@@ -1,0 +1,128 @@
+{
+  "quiz_njp": {
+    "title": "NJP Station Check",
+    "question": "What should Tenzing do before starting the journey?",
+    "options": [
+      {
+        "label": "Keep moving without stopping",
+        "correct": false
+      },
+      {
+        "label": "Check the station ticket and stay ready",
+        "correct": true
+      },
+      {
+        "label": "Leave the station immediately",
+        "correct": false
+      }
+    ]
+  },
+  "quiz_mirik": {
+    "title": "Mirik Lake Check",
+    "question": "What should Tenzing remember while moving through Mirik?",
+    "options": [
+      {
+        "label": "Rush past every stop",
+        "correct": false
+      },
+      {
+        "label": "Move carefully and observe the lake town",
+        "correct": true
+      },
+      {
+        "label": "Ignore local guidance",
+        "correct": false
+      }
+    ]
+  },
+  "quiz_rohini": {
+    "title": "Rohini Road Check",
+    "question": "What is the safest way to continue on a winding hill road?",
+    "options": [
+      {
+        "label": "Run downhill without looking",
+        "correct": false
+      },
+      {
+        "label": "Stay alert and follow the path",
+        "correct": true
+      },
+      {
+        "label": "Leave the marked route",
+        "correct": false
+      }
+    ]
+  },
+  "quiz_darjeeling": {
+    "title": "Darjeeling Check",
+    "question": "What helps Tenzing understand a new mountain town?",
+    "options": [
+      {
+        "label": "Listen to the people and notice the place",
+        "correct": true
+      },
+      {
+        "label": "Skip every conversation",
+        "correct": false
+      },
+      {
+        "label": "Forget the journey so far",
+        "correct": false
+      }
+    ]
+  },
+  "quiz_ghoom": {
+    "title": "Ghoom Monastery Check",
+    "question": "How should Tenzing behave in a quiet monastery area?",
+    "options": [
+      {
+        "label": "Be loud and careless",
+        "correct": false
+      },
+      {
+        "label": "Move respectfully and listen",
+        "correct": true
+      },
+      {
+        "label": "Ignore the surroundings",
+        "correct": false
+      }
+    ]
+  },
+  "quiz_sandakphu_trail": {
+    "title": "Sandakphu Trail Check",
+    "question": "What matters most before climbing higher?",
+    "options": [
+      {
+        "label": "Keep a steady pace",
+        "correct": true
+      },
+      {
+        "label": "Use all energy at once",
+        "correct": false
+      },
+      {
+        "label": "Stop paying attention",
+        "correct": false
+      }
+    ]
+  },
+  "quiz_sandakphu_summit": {
+    "title": "Sandakphu Summit Check",
+    "question": "What has Tenzing learned by reaching the summit?",
+    "options": [
+      {
+        "label": "Journeys are only about speed",
+        "correct": false
+      },
+      {
+        "label": "Every stop can teach something",
+        "correct": true
+      },
+      {
+        "label": "Stories do not matter",
+        "correct": false
+      }
+    ]
+  }
+}
