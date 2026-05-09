@@ -1,5 +1,8 @@
 // Stages are data-driven so the future reusable GameScene can render any stage
 // from config instead of hardcoding stage-specific branches.
+const stage1GroundY = 648;
+const playerGroundY = 696;
+
 const stages = [
   {
     id: 'stage_1_njp',
@@ -7,20 +10,21 @@ const stages = [
     stageNumber: 1,
     backgroundKey: 'bg_njp',
     backgroundLayers: [],
-    worldWidth: 3600,
+    worldWidth: 3200,
     npcs: [
-      { key: 'inspector', x: 1120, y: 648, width: 64, height: 112, dialogueId: 'dialogue_inspector' }
+      { key: 'inspector', x: 1120, y: stage1GroundY, width: 64, height: 112, dialogueId: 'dialogue_inspector' },
+      { key: 'tea_worker', x: 2870, y: stage1GroundY, width: 64, height: 96 }
     ],
     ambientObjects: [
-      { key: 'station_entrance', x: 360, y: 648, width: 280, height: 190 },
+      { key: 'station_entrance', x: 360, y: stage1GroundY, width: 280, height: 190 },
       { key: 'railway_sign_njp', x: 650, y: 540, width: 210, height: 72 },
-      { key: 'bench', x: 820, y: 648, width: 170, height: 64 },
-      { key: 'station_crates', x: 980, y: 648, width: 130, height: 86 },
-      { key: 'station_clutter', x: 1430, y: 648, width: 190, height: 88 },
-      { key: 'railway_signal', x: 1860, y: 648, width: 80, height: 180 },
+      { key: 'bench', x: 820, y: stage1GroundY, width: 170, height: 64 },
+      { key: 'station_crates', x: 980, y: stage1GroundY, width: 130, height: 86 },
+      { key: 'station_clutter', x: 1430, y: stage1GroundY, width: 190, height: 88 },
+      { key: 'railway_signal', x: 1860, y: stage1GroundY, width: 80, height: 180 },
+      { key: 'chai_stall', x: 2750, y: stage1GroundY, width: 320, height: 240 },
       { key: 'distant_tracks', x: 2260, y: 684, width: 620, height: 42 },
-      { key: 'station_crates', x: 2660, y: 648, width: 150, height: 92 },
-      { key: 'chai_stall', x: 3160, y: 648, width: 190, height: 140 }
+      { key: 'station_crates', x: 2660, y: stage1GroundY, width: 150, height: 92 }
     ],
     platforms: [],
     quizTriggers: [
@@ -44,29 +48,19 @@ const stages = [
     displayName: 'Mirik Lake',
     stageNumber: 2,
     backgroundKey: 'bg_mirik',
-    backgroundLayers: [
-      { key: 'bg_mirik_sky', scrollFactor: 0.15 },
-      { key: 'bg_mirik_mountains', scrollFactor: 0.35 },
-      { key: 'bg_mirik_foreground', scrollFactor: 0.7 }
-    ],
-    worldWidth: 3300,
+    backgroundLayers: [],
+    worldWidth: 3400,
     npcs: [
-      { key: 'boatman', x: 820, y: 624, width: 56, height: 96, dialogueId: 'dialogue_boatman' }
+      { key: 'boatman', x: 1750, y: stage1GroundY, width: 96, height: 96, dialogueId: 'dialogue_boatman' },
+      { key: 'boatman_rowing', x: 2850, y: stage1GroundY, width: 96, height: 96 }
     ],
     ambientObjects: [
-      { key: 'boat', x: 520, y: 648, width: 180, height: 80 },
-      { key: 'momo_stall', x: 1320, y: 648, width: 160, height: 120 },
-      { key: 'signpost', x: 1880, y: 648, width: 72, height: 120 },
-      { key: 'prayer_flags', x: 2500, y: 520, width: 220, height: 72 }
+      { key: 'boat', x: 2050, y: 560, width: 260, height: 120 },
+      { key: 'mirik_tea_stall', x: 3050, y: stage1GroundY, width: 220, height: 260 }
     ],
-    platforms: [
-      { x: 680, y: 540, width: 220, height: 28 },
-      { x: 1120, y: 455, width: 190, height: 28 },
-      { x: 1680, y: 525, width: 240, height: 28 },
-      { x: 2320, y: 470, width: 220, height: 28 }
-    ],
+    platforms: [],
     quizTriggers: [
-      { key: 'quiz_trigger_mirik', quizId: 'quiz_mirik', x: 1320, y: 696, width: 280, height: 200 }
+      { key: 'quiz_trigger_mirik', quizId: 'quiz_mirik', x: 3120, y: playerGroundY, width: 280, height: 200 }
     ],
     fxLayers: ['lake_shimmer'],
     nextStageId: 'stage_3_rohini',
@@ -78,28 +72,19 @@ const stages = [
     displayName: 'Rohini Road',
     stageNumber: 3,
     backgroundKey: 'bg_rohini',
-    backgroundLayers: [
-      { key: 'bg_rohini_sky', scrollFactor: 0.15 },
-      { key: 'bg_rohini_mountains', scrollFactor: 0.35 },
-      { key: 'bg_rohini_foreground', scrollFactor: 0.7 }
-    ],
-    worldWidth: 3400,
+    backgroundLayers: [],
+    worldWidth: 3600,
     npcs: [
-      { key: 'old_traveler', x: 900, y: 624, width: 56, height: 96, dialogueId: 'dialogue_old_traveler' }
+      { key: 'old_traveler', x: 1200, y: stage1GroundY, width: 96, height: 96, dialogueId: 'dialogue_old_traveler' },
+      { key: 'old_traveler_basket', x: 2350, y: stage1GroundY, width: 96, height: 96 }
     ],
     ambientObjects: [
-      { key: 'bridge', x: 620, y: 660, width: 260, height: 80 },
-      { key: 'signpost', x: 1720, y: 648, width: 72, height: 120 },
-      { key: 'prayer_flags', x: 2540, y: 520, width: 220, height: 72 }
+      { key: 'prayer_banner', x: 1140, y: 515, width: 340, height: 180 },
+      { key: 'direction_sign', x: 2500, y: playerGroundY, width: 140, height: 130 }
     ],
-    platforms: [
-      { x: 760, y: 535, width: 240, height: 28 },
-      { x: 1260, y: 450, width: 180, height: 28 },
-      { x: 1820, y: 520, width: 230, height: 28 },
-      { x: 2460, y: 460, width: 210, height: 28 }
-    ],
+    platforms: [],
     quizTriggers: [
-      { key: 'quiz_trigger_rohini', quizId: 'quiz_rohini', x: 1720, y: 696, width: 260, height: 200 }
+      { key: 'quiz_trigger_rohini', quizId: 'quiz_rohini', x: 2500, y: playerGroundY, width: 260, height: 200 }
     ],
     fxLayers: ['fog', 'light_rays'],
     nextStageId: 'stage_4_darjeeling',
@@ -111,29 +96,18 @@ const stages = [
     displayName: 'Darjeeling',
     stageNumber: 4,
     backgroundKey: 'bg_darjeeling',
-    backgroundLayers: [
-      { key: 'bg_darjeeling_sky', scrollFactor: 0.15 },
-      { key: 'bg_darjeeling_mountains', scrollFactor: 0.35 },
-      { key: 'bg_darjeeling_foreground', scrollFactor: 0.7 }
-    ],
-    worldWidth: 3400,
+    backgroundLayers: [],
+    worldWidth: 4200,
     npcs: [
-      { key: 'tea_worker', x: 980, y: 624, width: 56, height: 96, dialogueId: 'dialogue_tea_worker' }
+      { key: 'npc_tea_worker_idle', x: 1450, y: 624, width: 92, height: 128, dialogueId: 'dialogue_darjeeling_tea_worker' },
+      { key: 'npc_tea_worker_talk', x: 3150, y: 624, width: 92, height: 128, dialogueId: 'dialogue_darjeeling_tea_worker' }
     ],
     ambientObjects: [
-      { key: 'chai_stall', x: 460, y: 648, width: 160, height: 120 },
-      { key: 'prayer_flags', x: 1280, y: 520, width: 220, height: 72 },
-      { key: 'signpost', x: 2060, y: 648, width: 72, height: 120 },
-      { key: 'prayer_wheel', x: 2740, y: 648, width: 88, height: 120 }
+      { key: 'obj_momo_stall', x: 3330, y: 640, width: 240, height: 240 }
     ],
-    platforms: [
-      { x: 780, y: 545, width: 220, height: 28 },
-      { x: 1250, y: 465, width: 190, height: 28 },
-      { x: 1840, y: 535, width: 240, height: 28 },
-      { x: 2520, y: 480, width: 220, height: 28 }
-    ],
+    platforms: [],
     quizTriggers: [
-      { key: 'quiz_trigger_darjeeling', quizId: 'quiz_darjeeling', x: 460, y: 696, width: 280, height: 200 }
+      { key: 'quiz_trigger_darjeeling', quizId: 'quiz_darjeeling_stage4', x: 3360, y: playerGroundY, width: 280, height: 200 }
     ],
     fxLayers: ['fog'],
     nextStageId: 'stage_5_ghoom',

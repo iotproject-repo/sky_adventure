@@ -3,6 +3,42 @@
     {
       "key": "bg_njp",
       "path": "assets/backgrounds/njp/bg_njp.png"
+    },
+    {
+      "key": "bg_mirik",
+      "path": "assets/stage2/bg_mirik.png"
+    },
+    {
+      "key": "bg_rohini",
+      "path": "assets/backgrounds/rohini/bg_rohini.png"
+    },
+    {
+      "key": "bg_darjeeling",
+      "path": "assets/backgrounds/darjeeling/bg_darjeeling.png"
+    },
+    {
+      "key": "boat",
+      "path": "assets/objects/boat/obj_boat.png"
+    },
+    {
+      "key": "mirik_tea_stall",
+      "path": "assets/objects/chai_stall/obj_mirik_tea_stall.png"
+    },
+    {
+      "key": "direction_sign",
+      "path": "assets/objects/signpost/obj_direction_sign.png"
+    },
+    {
+      "key": "prayer_banner",
+      "path": "assets/objects/prayer_flags/obj_prayer_banner.png"
+    },
+    {
+      "key": "obj_momo_stall",
+      "path": "assets/objects/momo_stall/obj_momo_stall.png"
+    },
+    {
+      "key": "chai_stall",
+      "path": "assets/objects/chai_stall/obj_chai_stall.png"
     }
   ],
   "spritesheets": [
@@ -29,6 +65,48 @@
       "path": "assets/npcs/inspector/npc_inspector.png",
       "frameWidth": 64,
       "frameHeight": 96
+    },
+    {
+      "key": "tea_worker",
+      "path": "assets/npcs/tea_worker/npc_chai_worker.png",
+      "frameWidth": 64,
+      "frameHeight": 96
+    },
+    {
+      "key": "npc_tea_worker_idle",
+      "path": "assets/npcs/tea_worker/npc_tea_worker_idle.png",
+      "frameWidth": 64,
+      "frameHeight": 96
+    },
+    {
+      "key": "npc_tea_worker_talk",
+      "path": "assets/npcs/tea_worker/npc_tea_worker_talk.png",
+      "frameWidth": 64,
+      "frameHeight": 96
+    },
+    {
+      "key": "boatman",
+      "path": "assets/npcs/boatman/npc_boatman.png",
+      "frameWidth": 96,
+      "frameHeight": 128
+    },
+    {
+      "key": "boatman_rowing",
+      "path": "assets/npcs/boatman_rowing/npc_boatman_rowing.png",
+      "frameWidth": 96,
+      "frameHeight": 128
+    },
+    {
+      "key": "old_traveler",
+      "path": "assets/npcs/old_traveler/npc_old_traveler.png",
+      "frameWidth": 96,
+      "frameHeight": 128
+    },
+    {
+      "key": "old_traveler_basket",
+      "path": "assets/npcs/old_traveler/npc_old_traveler_basket.png",
+      "frameWidth": 96,
+      "frameHeight": 128
     }
   ],
   "audio": [],

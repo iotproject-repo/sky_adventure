@@ -43,6 +43,7 @@ export default class GameScene extends Phaser.Scene {
     this.ground = null;
     this.quizPrompt = null;
     this.activeQuizTrigger = null;
+    this.interactingNpc = null;
     this.stageDisplayObjects = [];
     this.stageColliders = [];
     this.stageOverlaps = [];
@@ -162,6 +163,7 @@ export default class GameScene extends Phaser.Scene {
     this.ground = null;
     this.quizPrompt = null;
     this.activeQuizTrigger = null;
+    this.interactingNpc = null;
     this.quizActive = false;
   }
 
@@ -407,6 +409,18 @@ export default class GameScene extends Phaser.Scene {
     }
 
     this.dialogueActive = true;
+    this.interactingNpc = this.interactionSystem?.currentTarget;
+
+    // Swap to talk animation if available
+    if (this.interactingNpc) {
+      const currentTexture = this.interactingNpc.texture.key;
+      const talkTexture = currentTexture.replace('_idle', '_talk');
+      if (this.textures.exists(talkTexture) && currentTexture.includes('_idle')) {
+        this.interactingNpc.setTexture(talkTexture);
+        this.interactingNpc.play(talkTexture);
+      }
+    }
+
     // Phaser events keep the scenes decoupled: GameScene only listens for a
     // close event and does not reach into DialogueScene internals.
     this.stopPlayerForDialogue();
@@ -478,20 +492,37 @@ export default class GameScene extends Phaser.Scene {
     this.interactionSystem?.setEnabled(false);
 
     this.cameras.main.once('camerafadeoutcomplete', () => {
-      console.log('Transition ready for next stage');
-      this.cleanupCurrentStage();
+      try {
+        console.log('GameScene transition: before cleanupCurrentStage()');
+        this.cleanupCurrentStage();
+        console.log('GameScene transition: after cleanupCurrentStage()');
 
-      const nextStageConfig = this.stageManager.advanceToNextStage();
+        const currentStageId = this.stageManager.getCurrentStageId();
+        const nextStageId = this.stageManager.getNextStageId();
 
-      if (!nextStageConfig) {
-        return;
+        console.log('GameScene transition: current stage id', currentStageId);
+        console.log('GameScene transition: next stage id', nextStageId);
+        console.log('GameScene transition: before stageManager.advanceToNextStage()');
+
+        const nextStageConfig = this.stageManager.advanceToNextStage();
+
+        console.log('GameScene transition: resolved stage config', nextStageConfig);
+
+        if (!nextStageConfig) {
+          return;
+        }
+
+        this.stageId = nextStageConfig.id;
+        this.stageTransitionStarted = false;
+        this.isTransitioning = false;
+        console.log('GameScene transition: before buildStage(nextStageConfig)');
+        this.buildStage(nextStageConfig);
+        console.log('GameScene transition: after buildStage(nextStageConfig)');
+        console.log('GameScene transition: before camera fade-in');
+        this.cameras.main.fadeIn(500);
+      } catch (error) {
+        console.error('GameScene transition: rebuild failed after fade-out', error);
       }
-
-      this.stageId = nextStageConfig.id;
-      this.stageTransitionStarted = false;
-      this.isTransitioning = false;
-      this.buildStage(nextStageConfig);
-      this.cameras.main.fadeIn(500);
     });
     this.cameras.main.fadeOut(500);
   }
@@ -503,6 +534,18 @@ export default class GameScene extends Phaser.Scene {
 
     this.dialogueActive = false;
     this.isTransitioning = false;
+
+    // Swap back to idle animation if it was changed
+    if (this.interactingNpc) {
+      const currentTexture = this.interactingNpc.texture.key;
+      const idleTexture = currentTexture.replace('_talk', '_idle');
+      if (this.textures.exists(idleTexture) && currentTexture.includes('_talk')) {
+        this.interactingNpc.setTexture(idleTexture);
+        this.interactingNpc.play(idleTexture);
+      }
+      this.interactingNpc = null;
+    }
+
     this.interactionSystem?.setEnabled(true);
     this.scene.resume();
   }

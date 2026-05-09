@@ -19,36 +19,36 @@
   },
   "quiz_mirik": {
     "title": "Mirik Lake Check",
-    "question": "What should Tenzing remember while moving through Mirik?",
+    "question": "What should Tenzing notice around Mirik Lake before continuing toward the hills?",
     "options": [
       {
-        "label": "Rush past every stop",
+        "label": "Only speed matters on the hill road",
         "correct": false
       },
       {
-        "label": "Move carefully and observe the lake town",
+        "label": "The lake, mist, boats, and quiet town life",
         "correct": true
       },
       {
-        "label": "Ignore local guidance",
+        "label": "The lake has nothing to do with the journey",
         "correct": false
       }
     ]
   },
   "quiz_rohini": {
     "title": "Rohini Road Check",
-    "question": "What is the safest way to continue on a winding hill road?",
+    "question": "What should Tenzing remember while climbing through Rohini Road?",
     "options": [
       {
-        "label": "Run downhill without looking",
+        "label": "Rush through the bends before the mist changes",
         "correct": false
       },
       {
-        "label": "Stay alert and follow the path",
+        "label": "Move steadily, read the signs, and respect the hill road",
         "correct": true
       },
       {
-        "label": "Leave the marked route",
+        "label": "Ignore the route and leave the road",
         "correct": false
       }
     ]
@@ -67,6 +67,24 @@
       },
       {
         "label": "Forget the journey so far",
+        "correct": false
+      }
+    ]
+  },
+  "quiz_darjeeling_stage4": {
+    "title": "Darjeeling Railway Check",
+    "question": "What should Tenzing remember about Darjeeling's hills and rail route?",
+    "options": [
+      {
+        "label": "The Himalayan Railway, tea gardens, and Kanchenjunga shape the town",
+        "correct": true
+      },
+      {
+        "label": "Only the busiest roads matter",
+        "correct": false
+      },
+      {
+        "label": "The hills can be ignored once the town starts",
         "correct": false
       }
     ]

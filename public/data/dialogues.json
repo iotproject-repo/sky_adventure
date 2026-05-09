@@ -9,15 +9,17 @@
   "dialogue_boatman": {
     "speaker": "Boatman",
     "lines": [
-      "Mirik Lake is calm today.",
-      "Even quiet water remembers the mountains."
+      "Mirik Lake is quiet when the mist comes down.",
+      "The boats move slowly here, but every crossing points back toward the hills.",
+      "Walk with the weather, Tenzing. The lake teaches patience before the road climbs again."
     ]
   },
   "dialogue_old_traveler": {
     "speaker": "Old Traveler",
     "lines": [
-      "Rohini road bends like an old song.",
-      "Walk slowly and the mist will show you the way."
+      "Rohini road rises quietly, one bend after another.",
+      "The hills do not hurry. Listen to the wind, watch the banners, and keep your steps steady.",
+      "By the time the signpost appears, the mist will already know where you are going."
     ]
   },
   "dialogue_tea_worker": {
@@ -25,6 +27,14 @@
     "lines": [
       "The tea gardens wake before the town does.",
       "Darjeeling is best understood one careful step at a time."
+    ]
+  },
+  "dialogue_darjeeling_tea_worker": {
+    "speaker": "Tea Worker",
+    "lines": [
+      "Darjeeling runs on tea, footsteps, and the hum of the hills.",
+      "Mall Road stays busy, but the town still moves at mountain pace.",
+      "When you watch the gardens and the people together, hill-town life starts to make sense."
     ]
   },
   "dialogue_monk": {

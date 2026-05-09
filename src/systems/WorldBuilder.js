@@ -168,39 +168,105 @@ export default class WorldBuilder {
         return this.createInspectorNpc(npcConfig);
       }
 
-      const npc = this.createVisualObject(npcConfig, 0x5f6cff);
+      if (npcConfig.key.startsWith('npc_tea_worker') && this.scene.textures.exists(npcConfig.key)) {
+        return this.createTeaWorkerNpc(npcConfig);
+      }
 
-      this.scene.physics.add.existing(npc, true);
-      // NPCs use a higher depth than the player so they remain visible during
-      // close conversations or overlap.
-      npc.setDepth(11);
-      npc.setData('type', 'npc');
-      npc.setData('dialogueId', npcConfig.dialogueId);
-      npc.type = 'npc';
-      npc.dialogueId = npcConfig.dialogueId;
-      npc.interaction = {
-        type: npc.type,
-        key: npcConfig.key,
-        dialogueId: npc.dialogueId,
-        range: npcConfig.interactionRange ?? 120
-      };
-
-      return npc;
+      return this.createGenericNpc(npcConfig);
     });
+  }
+
+  createGenericNpc(npcConfig) {
+    const textureKey = this.resolveNpcTextureKey(npcConfig);
+    const animationKey = this.resolveNpcAnimationKey(npcConfig);
+
+    console.log('NPC placeholder object type', {
+      key: npcConfig.key,
+      textureKey,
+      objectType: 'StaticSprite'
+    });
+
+    const npc = this.scene.physics.add.staticSprite(npcConfig.x, npcConfig.y + 8, textureKey);
+
+    npc.setOrigin(0.5, 1);
+    npc.setDisplaySize(npcConfig.width, npcConfig.height);
+    npc.refreshBody();
+    this.configureNpcInteraction(npc, npcConfig);
+    this.playNpcIdleAnimation(npc, animationKey);
+
+    return npc;
+  }
+
+  resolveNpcTextureKey(npcConfig) {
+    if (this.scene.textures.exists(npcConfig.key)) {
+      return npcConfig.key;
+    }
+
+    return this.createGeneratedNpcTexture(npcConfig);
+  }
+
+  resolveNpcAnimationKey(npcConfig) {
+    if (npcConfig.key === 'npc_inspector' || npcConfig.key === 'npc_tea_worker_idle' || npcConfig.key === 'npc_tea_worker_talk') {
+      return npcConfig.key;
+    }
+
+    return `${npcConfig.key}_idle`;
+  }
+
+  createGeneratedNpcTexture(npcConfig) {
+    const textureKey = `generated_npc_${npcConfig.key}`;
+
+    if (this.scene.textures.exists(textureKey)) {
+      return textureKey;
+    }
+
+    const graphics = this.scene.add.graphics();
+    const width = Math.max(npcConfig.width, 1);
+    const height = Math.max(npcConfig.height, 1);
+    const bodyWidth = width * 0.5;
+    const centerX = width / 2;
+    const bottomY = height;
+
+    graphics.fillStyle(0xd9a066, 1);
+    graphics.fillCircle(centerX, height * 0.2, width * 0.2);
+    graphics.fillStyle(0x5f6cff, 1);
+    graphics.fillRoundedRect(centerX - bodyWidth / 2, height * 0.34, bodyWidth, height * 0.38, 4);
+    graphics.fillStyle(0x253047, 1);
+    graphics.fillRect(centerX - bodyWidth * 0.38, height * 0.7, bodyWidth * 0.28, height * 0.25);
+    graphics.fillRect(centerX + bodyWidth * 0.1, height * 0.7, bodyWidth * 0.28, height * 0.25);
+    graphics.fillStyle(0x1a1a1a, 1);
+    graphics.fillRect(centerX - bodyWidth * 0.45, bottomY - 8, bodyWidth * 0.32, 8);
+    graphics.fillRect(centerX + bodyWidth * 0.13, bottomY - 8, bodyWidth * 0.32, 8);
+
+    graphics.generateTexture(textureKey, width, height);
+    graphics.destroy();
+
+    return textureKey;
   }
 
   createNpcAnimations() {
     // Animations are registered once. Phaser shares animation keys across
     // scenes, so this guard prevents duplicate-key warnings on scene restart.
-    if (!this.scene.textures.exists('npc_inspector') || this.scene.anims.exists('npc_inspector_idle')) {
+    this.createNpcIdleAnimation('npc_inspector', 'npc_inspector_idle');
+    this.createNpcIdleAnimation('tea_worker', 'tea_worker_idle', 0);
+    this.createNpcIdleAnimation('npc_tea_worker_idle', 'npc_tea_worker_idle', 3);
+    this.createNpcIdleAnimation('npc_tea_worker_talk', 'npc_tea_worker_talk', 3);
+    this.createNpcIdleAnimation('boatman', 'boatman_idle');
+    this.createNpcIdleAnimation('boatman_rowing', 'boatman_rowing_idle');
+    this.createNpcIdleAnimation('old_traveler', 'old_traveler_idle');
+    this.createNpcIdleAnimation('old_traveler_basket', 'old_traveler_basket_idle');
+  }
+
+  createNpcIdleAnimation(textureKey, animationKey, endFrame = 3) {
+    if (!this.scene.textures.exists(textureKey) || this.scene.anims.exists(animationKey)) {
       return;
     }
 
     this.scene.anims.create({
-      key: 'npc_inspector_idle',
-      frames: this.scene.anims.generateFrameNumbers('npc_inspector', {
+      key: animationKey,
+      frames: this.scene.anims.generateFrameNumbers(textureKey, {
         start: 0,
-        end: 3
+        end: endFrame
       }),
       frameRate: 3,
       repeat: -1
@@ -215,10 +281,30 @@ export default class WorldBuilder {
     const npc = this.scene.physics.add.staticSprite(npcConfig.x, npcConfig.y + 8, 'npc_inspector');
 
     npc.setOrigin(0.5, 1);
-    npc.setDisplaySize(npcConfig.width, 96);
+    npc.setDisplaySize(npcConfig.width, npcConfig.height);
     npc.refreshBody();
     // Inspector sits above the player and decorative props, which keeps the
     // NPC readable during gameplay and interactions.
+    this.configureNpcInteraction(npc, npcConfig);
+    npc.anims.play('npc_inspector_idle');
+
+    return npc;
+  }
+
+  createTeaWorkerNpc(npcConfig) {
+    const npc = this.scene.physics.add.sprite(npcConfig.x, npcConfig.y + 8, npcConfig.key);
+
+    npc.setOrigin(0.5, 1);
+    npc.setDisplaySize(npcConfig.width, npcConfig.height);
+    npc.setImmovable(true);
+    npc.body.setAllowGravity(false);
+    this.configureNpcInteraction(npc, npcConfig);
+    this.playNpcIdleAnimation(npc, npcConfig.key);
+
+    return npc;
+  }
+
+  configureNpcInteraction(npc, npcConfig) {
     npc.setDepth(11);
     npc.setData('type', 'npc');
     npc.setData('dialogueId', npcConfig.dialogueId);
@@ -230,9 +316,14 @@ export default class WorldBuilder {
       dialogueId: npc.dialogueId,
       range: npcConfig.interactionRange ?? 120
     };
-    npc.anims.play('npc_inspector_idle');
+  }
 
-    return npc;
+  playNpcIdleAnimation(npc, animationKey) {
+    if (!this.scene.anims.exists(animationKey)) {
+      return;
+    }
+
+    npc.anims.play(animationKey);
   }
 
   createVisualObject(config, fallbackColor) {
