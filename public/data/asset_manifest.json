@@ -39,6 +39,22 @@
     {
       "key": "chai_stall",
       "path": "assets/objects/chai_stall/obj_chai_stall.png"
+    },
+    {
+      "key": "bg_ghoom",
+      "path": "assets/backgrounds/ghoom/bg_ghoom.png"
+    },
+    {
+      "key": "obj_buddha_statue",
+      "path": "assets/objects/buddha_statue/obj_buddha_statue.png"
+    },
+    {
+      "key": "obj_prayer_wheel",
+      "path": "assets/objects/prayer_wheel/obj_prayer_wheel.png"
+    },
+    {
+      "key": "bg_sandakphu_trail",
+      "path": "assets/backgrounds/sandakphu_trail.png"
     }
   ],
   "spritesheets": [
@@ -107,6 +123,30 @@
       "path": "assets/npcs/old_traveler/npc_old_traveler_basket.png",
       "frameWidth": 96,
       "frameHeight": 128
+    },
+    {
+      "key": "npc_monk_idle",
+      "path": "assets/npcs/monk/npc_monk_idle.png",
+      "frameWidth": 64,
+      "frameHeight": 96
+    },
+    {
+      "key": "npc_monk_talk",
+      "path": "assets/npcs/monk/npc_monk_talk.png",
+      "frameWidth": 64,
+      "frameHeight": 96
+    },
+    {
+      "key": "npc_mountain_guide_idle",
+      "path": "assets/npcs/guide/npc_mountain_guide.png",
+      "frameWidth": 64,
+      "frameHeight": 96
+    },
+    {
+      "key": "npc_mountain_guide_talk",
+      "path": "assets/npcs/guide/npc_mountain_guide.png",
+      "frameWidth": 64,
+      "frameHeight": 96
     }
   ],
   "audio": [],

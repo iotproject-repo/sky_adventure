@@ -89,6 +89,24 @@
       }
     ]
   },
+  "quiz_ghoom_stage5": {
+    "title": "Ghoom Monastery Check",
+    "question": "Which Buddha is honored at the Ghoom Monastery, known as the Buddha of Compassion and the one who is yet to come?",
+    "options": [
+      {
+        "label": "Maitreya Buddha",
+        "correct": true
+      },
+      {
+        "label": "Gautama Buddha",
+        "correct": false
+      },
+      {
+        "label": "Amitabha Buddha",
+        "correct": false
+      }
+    ]
+  },
   "quiz_ghoom": {
     "title": "Ghoom Monastery Check",
     "question": "How should Tenzing behave in a quiet monastery area?",
@@ -108,19 +126,19 @@
     ]
   },
   "quiz_sandakphu_trail": {
-    "title": "Sandakphu Trail Check",
-    "question": "What matters most before climbing higher?",
+    "title": "Sandakphu Geography",
+    "question": "Which of these is the highest peak visible from the Sandakphu trail?",
     "options": [
       {
-        "label": "Keep a steady pace",
+        "label": "Mount Everest",
         "correct": true
       },
       {
-        "label": "Use all energy at once",
+        "label": "Mount Fuji",
         "correct": false
       },
       {
-        "label": "Stop paying attention",
+        "label": "The Matterhorn",
         "correct": false
       }
     ]

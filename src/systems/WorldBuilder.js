@@ -168,7 +168,7 @@ export default class WorldBuilder {
         return this.createInspectorNpc(npcConfig);
       }
 
-      if (npcConfig.key.startsWith('npc_tea_worker') && this.scene.textures.exists(npcConfig.key)) {
+      if ((npcConfig.key.startsWith('npc_tea_worker') || npcConfig.key.startsWith('npc_monk')) && (this.scene.textures.exists(npcConfig.key) || this.scene.textures.exists(`${npcConfig.key}_idle`))) {
         return this.createTeaWorkerNpc(npcConfig);
       }
 
@@ -202,12 +202,26 @@ export default class WorldBuilder {
       return npcConfig.key;
     }
 
+    if (npcConfig.key === 'npc_monk' && this.scene.textures.exists('npc_monk_idle')) {
+      return 'npc_monk_idle';
+    }
+
     return this.createGeneratedNpcTexture(npcConfig);
   }
 
   resolveNpcAnimationKey(npcConfig) {
-    if (npcConfig.key === 'npc_inspector' || npcConfig.key === 'npc_tea_worker_idle' || npcConfig.key === 'npc_tea_worker_talk') {
+    if (npcConfig.key === 'npc_inspector' || 
+        npcConfig.key === 'npc_tea_worker_idle' || 
+        npcConfig.key === 'npc_tea_worker_talk' ||
+        npcConfig.key === 'npc_monk_idle' ||
+        npcConfig.key === 'npc_monk_talk' ||
+        npcConfig.key === 'npc_mountain_guide_idle' ||
+        npcConfig.key === 'npc_mountain_guide_talk') {
       return npcConfig.key;
+    }
+
+    if (npcConfig.key === 'npc_monk') {
+      return 'npc_monk_idle';
     }
 
     return `${npcConfig.key}_idle`;
@@ -255,6 +269,10 @@ export default class WorldBuilder {
     this.createNpcIdleAnimation('boatman_rowing', 'boatman_rowing_idle');
     this.createNpcIdleAnimation('old_traveler', 'old_traveler_idle');
     this.createNpcIdleAnimation('old_traveler_basket', 'old_traveler_basket_idle');
+    this.createNpcIdleAnimation('npc_monk_idle', 'npc_monk_idle', 3);
+    this.createNpcIdleAnimation('npc_monk_talk', 'npc_monk_talk', 3);
+    this.createNpcIdleAnimation('npc_mountain_guide_idle', 'npc_mountain_guide_idle', 3);
+    this.createNpcIdleAnimation('npc_mountain_guide_talk', 'npc_mountain_guide_talk', 3);
   }
 
   createNpcIdleAnimation(textureKey, animationKey, endFrame = 3) {
@@ -292,7 +310,8 @@ export default class WorldBuilder {
   }
 
   createTeaWorkerNpc(npcConfig) {
-    const npc = this.scene.physics.add.sprite(npcConfig.x, npcConfig.y + 8, npcConfig.key);
+    const textureKey = this.resolveNpcTextureKey(npcConfig);
+    const npc = this.scene.physics.add.sprite(npcConfig.x, npcConfig.y + 8, textureKey);
 
     npc.setOrigin(0.5, 1);
     npc.setDisplaySize(npcConfig.width, npcConfig.height);

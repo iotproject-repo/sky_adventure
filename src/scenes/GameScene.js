@@ -60,6 +60,10 @@ export default class GameScene extends Phaser.Scene {
     // Scene lifecycle cleanup is separate from stage cleanup. This removes
     // shared event listeners only when GameScene itself shuts down.
     this.hasShutdown = false;
+
+    // DEV MODE: Set to true to enable mouse dragging and coordinate logging.
+    this.DEV_PLACEMENT_MODE = true;
+    this.devCoordLabel = null;
   }
 
   preload() {
@@ -133,6 +137,54 @@ export default class GameScene extends Phaser.Scene {
     this.setupQuizTriggers();
     this.setupCamera(stageConfig.worldWidth, gameHeight);
     this.stageDisplayObjects = this.children.list.filter((child) => !existingChildren.has(child));
+
+    if (this.DEV_PLACEMENT_MODE) {
+      this.setupDevPlacementMode();
+    }
+  }
+
+  setupDevPlacementMode() {
+    this.devCoordLabel = this.add.text(0, 0, '', {
+      fontSize: '18px',
+      backgroundColor: '#000',
+      color: '#0f0',
+      padding: { x: 4, y: 2 }
+    }).setDepth(1000).setScrollFactor(0).setVisible(false);
+
+    const draggables = this.stageDisplayObjects.filter(obj => 
+      obj.getData('type') === 'npc' || obj.getData('configKey')
+    );
+
+    draggables.forEach(obj => {
+      // Ensure hit area for containers and images
+      if (obj.type === 'Container') {
+        obj.setInteractive(new Phaser.Geom.Rectangle(0, 0, obj.width, obj.height), Phaser.Geom.Rectangle.Contains);
+      } else {
+        obj.setInteractive();
+      }
+      
+      this.input.setDraggable(obj);
+      
+      obj.on('dragstart', () => {
+        this.devCoordLabel.setVisible(true);
+      });
+
+      obj.on('drag', (pointer, dragX, dragY) => {
+        obj.x = Math.round(dragX);
+        obj.y = Math.round(dragY);
+        if (obj.body && obj.body.updateFromGameObject) {
+          obj.body.updateFromGameObject();
+        }
+        this.devCoordLabel.setText(`x: ${obj.x}, y: ${obj.y}`);
+        this.devCoordLabel.setPosition(pointer.x, pointer.y - 40);
+      });
+
+      obj.on('dragend', () => {
+        const key = obj.getData('configKey') || obj.texture?.key || 'unknown';
+        console.log(`DEV PLACEMENT: { key: '${key}', x: ${obj.x}, y: ${obj.y} }`);
+        this.devCoordLabel.setVisible(false);
+      });
+    });
   }
 
   cleanupCurrentStage() {

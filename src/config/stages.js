@@ -12,19 +12,20 @@ const stages = [
     backgroundLayers: [],
     worldWidth: 3200,
     npcs: [
-      { key: 'inspector', x: 1120, y: stage1GroundY, width: 64, height: 112, dialogueId: 'dialogue_inspector' },
-      { key: 'tea_worker', x: 2870, y: stage1GroundY, width: 64, height: 96 }
+      { key: 'inspector', x: 1620, y: 663, width: 64, height: 112, dialogueId: 'dialogue_inspector' },
+      { key: 'tea_worker', x: 2485, y: 659, width: 64, height: 96 }
     ],
     ambientObjects: [
       { key: 'station_entrance', x: 360, y: stage1GroundY, width: 280, height: 190 },
       { key: 'railway_sign_njp', x: 650, y: 540, width: 210, height: 72 },
       { key: 'bench', x: 820, y: stage1GroundY, width: 170, height: 64 },
       { key: 'station_crates', x: 980, y: stage1GroundY, width: 130, height: 86 },
+      { key: 'station_crates', x: 1111, y: 655, width: 130, height: 86 },
       { key: 'station_clutter', x: 1430, y: stage1GroundY, width: 190, height: 88 },
       { key: 'railway_signal', x: 1860, y: stage1GroundY, width: 80, height: 180 },
-      { key: 'chai_stall', x: 2750, y: stage1GroundY, width: 320, height: 240 },
+      { key: 'chai_stall', x: 2581, y: 688, width: 320, height: 240 },
       { key: 'distant_tracks', x: 2260, y: 684, width: 620, height: 42 },
-      { key: 'station_crates', x: 2660, y: stage1GroundY, width: 150, height: 92 }
+      { key: 'station_crates', x: 2276, y: 659, width: 150, height: 92 }
     ],
     platforms: [],
     quizTriggers: [
@@ -51,8 +52,8 @@ const stages = [
     backgroundLayers: [],
     worldWidth: 3400,
     npcs: [
-      { key: 'boatman', x: 1750, y: stage1GroundY, width: 96, height: 96, dialogueId: 'dialogue_boatman' },
-      { key: 'boatman_rowing', x: 2850, y: stage1GroundY, width: 96, height: 96 }
+      { key: 'boatman', x: 2346, y: 598, width: 96, height: 96, dialogueId: 'dialogue_boatman' },
+      { key: 'boatman_rowing', x: 2954, y: 638, width: 96, height: 96 }
     ],
     ambientObjects: [
       { key: 'boat', x: 2050, y: 560, width: 260, height: 120 },
@@ -75,12 +76,12 @@ const stages = [
     backgroundLayers: [],
     worldWidth: 3600,
     npcs: [
-      { key: 'old_traveler', x: 1200, y: stage1GroundY, width: 96, height: 96, dialogueId: 'dialogue_old_traveler' },
-      { key: 'old_traveler_basket', x: 2350, y: stage1GroundY, width: 96, height: 96 }
+      { key: 'old_traveler', x: 1176, y: 616, width: 96, height: 96, dialogueId: 'dialogue_old_traveler' },
+      { key: 'old_traveler_basket', x: 2574, y: 618, width: 96, height: 96 }
     ],
     ambientObjects: [
-      { key: 'prayer_banner', x: 1140, y: 515, width: 340, height: 180 },
-      { key: 'direction_sign', x: 2500, y: playerGroundY, width: 140, height: 130 }
+      { key: 'prayer_banner', x: 1098, y: 588, width: 340, height: 180 },
+      { key: 'direction_sign', x: 2778, y: 600, width: 140, height: 130 }
     ],
     platforms: [],
     quizTriggers: [
@@ -100,7 +101,7 @@ const stages = [
     worldWidth: 4200,
     npcs: [
       { key: 'npc_tea_worker_idle', x: 1450, y: 624, width: 92, height: 128, dialogueId: 'dialogue_darjeeling_tea_worker' },
-      { key: 'npc_tea_worker_talk', x: 3150, y: 624, width: 92, height: 128, dialogueId: 'dialogue_darjeeling_tea_worker' }
+      { key: 'npc_tea_worker_talk', x: 3150, y: 624, width: 92, height: 128 }
     ],
     ambientObjects: [
       { key: 'obj_momo_stall', x: 3330, y: 640, width: 240, height: 240 }
@@ -119,29 +120,30 @@ const stages = [
     displayName: 'Ghoom Monastery',
     stageNumber: 5,
     backgroundKey: 'bg_ghoom',
-    backgroundLayers: [
-      { key: 'bg_ghoom_sky', scrollFactor: 0.15 },
-      { key: 'bg_ghoom_mountains', scrollFactor: 0.35 },
-      { key: 'bg_ghoom_foreground', scrollFactor: 0.7 }
-    ],
-    worldWidth: 3300,
+    backgroundLayers: [],
+    worldWidth: 2200,
     npcs: [
-      { key: 'monk', x: 900, y: 624, width: 56, height: 96, dialogueId: 'dialogue_monk' }
+      { key: 'npc_monk_idle', x: 880, y: 602, width: 64, height: 96, dialogueId: 'dialogue_monk_stage5' },
+      { key: 'npc_monk_idle', x: 1582, y: 613, width: 64, height: 96 }
     ],
     ambientObjects: [
-      { key: 'buddha_statue', x: 560, y: 628, width: 140, height: 160 },
-      { key: 'prayer_wheel', x: 1360, y: 648, width: 88, height: 120 },
-      { key: 'prayer_flags', x: 1900, y: 520, width: 220, height: 72 },
-      { key: 'signpost', x: 2640, y: 648, width: 72, height: 120 }
+      { key: 'obj_prayer_wheel', x: 1220, y: 500, width: 88, height: 120 },
+      { key: 'obj_prayer_wheel', x: 1360, y: 500, width: 88, height: 120 },
+      { key: 'obj_prayer_wheel', x: 1500, y: 500, width: 88, height: 120 },
+      { key: 'obj_buddha_statue', x: 1000, y: 597, width: 140, height: 160 },
+      { key: 'obj_momo_stall', x: 1993, y: 626, width: 240, height: 240 }
     ],
-    platforms: [
-      { x: 720, y: 540, width: 220, height: 28 },
-      { x: 1160, y: 455, width: 180, height: 28 },
-      { x: 1700, y: 520, width: 240, height: 28 },
-      { x: 2360, y: 465, width: 220, height: 28 }
-    ],
+    platforms: [],
     quizTriggers: [
-      { key: 'quiz_trigger_ghoom', quizId: 'quiz_ghoom', x: 1360, y: 696, width: 240, height: 200 }
+      {
+        key: 'quiz_trigger_ghoom_momo',
+        quizId: 'quiz_ghoom_stage5',
+        targetObjectKey: 'obj_momo_stall',
+        width: 280,
+        height: 200,
+        offsetX: 0,
+        offsetY: 0
+      }
     ],
     fxLayers: ['fog', 'light_rays'],
     nextStageId: 'stage_6_sandakphu_trail',
@@ -153,29 +155,29 @@ const stages = [
     displayName: 'Sandakphu Trail',
     stageNumber: 6,
     backgroundKey: 'bg_sandakphu_trail',
-    backgroundLayers: [
-      { key: 'bg_sandakphu_trail_sky', scrollFactor: 0.15 },
-      { key: 'bg_sandakphu_trail_mountains', scrollFactor: 0.35 },
-      { key: 'bg_sandakphu_trail_foreground', scrollFactor: 0.7 }
-    ],
-    worldWidth: 3600,
+    backgroundLayers: [],
+    worldWidth: 2600,
     npcs: [
-      { key: 'guide', x: 860, y: 624, width: 56, height: 96, dialogueId: 'dialogue_guide_trail' }
+      {
+        key: 'npc_mountain_guide_idle',
+        x: 1244,
+        y: 621,
+        width: 64,
+        height: 96,
+        dialogueId: 'dialogue_guide_trail'
+      }
     ],
-    ambientObjects: [
-      { key: 'bridge', x: 680, y: 660, width: 260, height: 80 },
-      { key: 'prayer_flags', x: 1480, y: 520, width: 220, height: 72 },
-      { key: 'signpost', x: 2320, y: 648, width: 72, height: 120 },
-      { key: 'prayer_wheel', x: 3040, y: 648, width: 88, height: 120 }
-    ],
-    platforms: [
-      { x: 820, y: 535, width: 230, height: 28 },
-      { x: 1360, y: 450, width: 190, height: 28 },
-      { x: 1980, y: 520, width: 240, height: 28 },
-      { x: 2720, y: 455, width: 220, height: 28 }
-    ],
+    ambientObjects: [],
+    platforms: [],
     quizTriggers: [
-      { key: 'quiz_trigger_sandakphu_trail', quizId: 'quiz_sandakphu_trail', x: 2320, y: 696, width: 260, height: 200 }
+      {
+        key: 'quiz_trigger_sandakphu_trail',
+        quizId: 'quiz_sandakphu_trail',
+        x: 2100,
+        y: 580,
+        width: 200,
+        height: 200
+      }
     ],
     fxLayers: ['fog', 'snow'],
     nextStageId: 'stage_7_sandakphu_summit',
@@ -187,33 +189,34 @@ const stages = [
     displayName: 'Sandakphu Summit',
     stageNumber: 7,
     backgroundKey: 'bg_sandakphu_summit',
-    backgroundLayers: [
-      { key: 'bg_sandakphu_summit_sky', scrollFactor: 0.15 },
-      { key: 'bg_sandakphu_summit_mountains', scrollFactor: 0.35 },
-      { key: 'bg_sandakphu_summit_foreground', scrollFactor: 0.7 }
-    ],
-    worldWidth: 3200,
+    backgroundLayers: [],
+    worldWidth: 2400,
     npcs: [
-      { key: 'guide', x: 800, y: 624, width: 56, height: 96, dialogueId: 'dialogue_guide_summit' }
+      {
+        key: 'npc_wise_traveler_idle',
+        x: 1196,
+        y: 643,
+        width: 64,
+        height: 96,
+        dialogueId: 'DIALOG_STAGE_7_SUMMIT'
+      }
     ],
-    ambientObjects: [
-      { key: 'prayer_flags', x: 720, y: 520, width: 220, height: 72 },
-      { key: 'signpost', x: 1680, y: 648, width: 72, height: 120 },
-      { key: 'buddha_statue', x: 2500, y: 628, width: 140, height: 160 }
-    ],
-    platforms: [
-      { x: 760, y: 535, width: 220, height: 28 },
-      { x: 1220, y: 455, width: 180, height: 28 },
-      { x: 1780, y: 520, width: 240, height: 28 },
-      { x: 2440, y: 465, width: 220, height: 28 }
-    ],
+    ambientObjects: [],
+    platforms: [],
     quizTriggers: [
-      { key: 'quiz_trigger_sandakphu_summit', quizId: 'quiz_sandakphu_summit', x: 1680, y: 696, width: 260, height: 200 }
+      {
+        key: 'quiz_trigger_summit_signpost',
+        quizId: 'FINAL_CHALLENGE',
+        x: 2150,
+        y: 560,
+        width: 200,
+        height: 200
+      }
     ],
-    fxLayers: ['snow', 'light_rays'],
+    fxLayers: ['fog', 'snow', 'light_rays'],
     nextStageId: null,
     musicKey: 'mus_sandakphu_summit',
-    ambientKey: 'amb_sandakphu_summit'
+    ambientKey: null
   }
 ];
 

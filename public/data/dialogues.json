@@ -40,11 +40,29 @@
   "dialogue_monk": {
     "speaker": "Monk",
     "lines": [
-      "At Ghoom, the clouds feel close enough to touch.",
-      "Listen before you climb higher."
+      "Welcome to Ghoom, the hill of the high peaks. The mist here is the breath of the mountains.",
+      "The Maitreya Buddha watches over this pass, waiting for a future where all paths are clear.",
+      "As the clouds pass through these halls, remember that even the heaviest fog is only temporary.",
+      "Peace is not the absence of the climb, but the steady heart you bring to the trail."
+    ]
+  },
+  "dialogue_monk_stage5": {
+    "speaker": "Monk",
+    "lines": [
+      "Ghoom Monastery has stood since 1850, a silent witness to the clouds and the climbing sun.",
+      "We honor the Maitreya Buddha here, the one who is yet to come, the Buddha of Compassion.",
+      "The prayer wheels carry our intentions into the wind. Spin them with a kind heart, Tenzing."
     ]
   },
   "dialogue_guide_trail": {
+    "speaker": "Guide",
+    "lines": [
+      "The air is thin here, Tenzing. Take it slow.",
+      "Sandakphu is the only place where you can see four of the world's five highest peaks at once.",
+      "Look toward the horizon. Even the highest mountains began as a single step."
+    ]
+  },
+  "dialogue_guide_trail_old": {
     "speaker": "Guide",
     "lines": [
       "The Sandakphu trail is beautiful, but it asks for patience.",
