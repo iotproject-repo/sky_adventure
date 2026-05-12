@@ -4,3 +4,4 @@ export default class DialogueManager {
     // TODO: Accept dialogue data and event dependencies later.
   }
 }
+//knkn
