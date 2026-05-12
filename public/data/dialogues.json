@@ -132,5 +132,31 @@
       }
     ],
     "choices": null
+  },
+  "DIALOG_STAGE_4_TEA_WORKER_IDLE": {
+    "lines": [
+      {
+        "speaker": "Tea Worker",
+        "text": "The tea gardens of Darjeeling wake before sunrise every morning."
+      },
+      {
+        "speaker": "Tea Worker",
+        "text": "Travelers often stop here for warm tea before heading uphill."
+      }
+    ],
+    "choices": null
+  },
+  "DIALOG_STAGE_4_TEA_WORKER_TALK": {
+    "lines": [
+      {
+        "speaker": "Tea Worker",
+        "text": "Fresh mountain air gives Darjeeling tea its special aroma."
+      },
+      {
+        "speaker": "Tea Worker",
+        "text": "Many workers here have cared for these gardens for generations."
+      }
+    ],
+    "choices": null
   }
 }

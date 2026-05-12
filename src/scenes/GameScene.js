@@ -77,6 +77,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     this.inputManager = new InputManager(this);
+    this.dialogueData = this.cache.json.get('dialogueData') ?? {};
     this.quizManager = new QuizManager(this.cache.json.get('quizData') ?? {});
     this.registerInteractionEvents();
     this.registerSceneEvents();
@@ -434,6 +435,12 @@ export default class GameScene extends Phaser.Scene {
     if (!npc.dialogueId) {
       return;
     }
+
+    console.log('NPC dialogueId:', npc.dialogueId);
+    console.log(
+      'Dialogue exists:',
+      this.dialogueData[npc.dialogueId]
+    );
 
     this.dialogueActive = true;
     this.interactingNpc = this.interactionSystem?.currentTarget;

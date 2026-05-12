@@ -102,8 +102,7 @@ const stages = [
       {
         key: 'npc_tea_worker_talk',
         x: 3150,
-        y: 639,
-        dialogueId: 'DIALOG_STAGE_4_TEA_WORKER_TALK'
+        y: 639
       }
     ],
     ambientObjects: [
