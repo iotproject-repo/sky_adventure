@@ -93,7 +93,9 @@ export default class InteractionSystem {
     const payload = {
       type: metadata.type,
       key: metadata.key,
-      dialogueId: metadata.dialogueId
+      dialogueId: metadata.dialogueId,
+      quizId: metadata.quizId,
+      interactionType: metadata.interactionType
     };
 
     this.scene.events.emit('npc-interacted', payload);
@@ -102,6 +104,8 @@ export default class InteractionSystem {
   getNpcInteractionMetadata(target) {
     const type = target?.getData?.('type') ?? target?.type;
     const dialogueId = target?.getData?.('dialogueId') ?? target?.dialogueId;
+    const quizId = target?.getData?.('quizId') ?? target?.quizId;
+    const interactionType = target?.getData?.('interactionType') ?? target?.interaction?.interactionType;
 
     if (type !== 'npc' || !dialogueId) {
       return null;
@@ -111,6 +115,8 @@ export default class InteractionSystem {
       type,
       key: target.interaction?.key,
       dialogueId,
+      quizId,
+      interactionType,
       range: target.interaction?.range ?? 120
     };
   }

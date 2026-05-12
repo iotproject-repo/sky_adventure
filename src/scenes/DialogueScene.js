@@ -86,10 +86,19 @@ export default class DialogueScene extends Phaser.Scene {
   }
 
   showCurrentLine() {
-    const line = this.dialogue.lines[this.currentLineIndex] ?? '';
+    const lineData = this.dialogue.lines[this.currentLineIndex];
+    let speaker = this.dialogue.speaker;
+    let text = '';
 
-    this.speakerText.setText(this.dialogue.speaker);
-    this.currentText = line;
+    if (typeof lineData === 'string') {
+      text = lineData;
+    } else if (lineData && typeof lineData === 'object') {
+      speaker = lineData.speaker ?? speaker;
+      text = lineData.text ?? '';
+    }
+
+    this.speakerText.setText(speaker);
+    this.currentText = text;
     this.visibleText = '';
     this.lineText.setText('');
     this.startTypewriter();

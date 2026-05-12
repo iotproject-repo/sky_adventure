@@ -16,29 +16,22 @@ const stages = [
       { key: 'tea_worker', x: 2485, y: 659, width: 64, height: 96 }
     ],
     ambientObjects: [
-      { key: 'station_entrance', x: 360, y: stage1GroundY, width: 280, height: 190 },
-      { key: 'railway_sign_njp', x: 650, y: 540, width: 210, height: 72 },
-      { key: 'bench', x: 820, y: stage1GroundY, width: 170, height: 64 },
-      { key: 'station_crates', x: 980, y: stage1GroundY, width: 130, height: 86 },
-      { key: 'station_crates', x: 1111, y: 655, width: 130, height: 86 },
-      { key: 'station_clutter', x: 1430, y: stage1GroundY, width: 190, height: 88 },
-      { key: 'railway_signal', x: 1860, y: stage1GroundY, width: 80, height: 180 },
-      { key: 'chai_stall', x: 2581, y: 688, width: 320, height: 240 },
-      { key: 'distant_tracks', x: 2260, y: 684, width: 620, height: 42 },
-      { key: 'station_crates', x: 2276, y: 659, width: 150, height: 92 }
-    ],
-    platforms: [],
-    quizTriggers: [
       {
-        key: 'quiz_trigger_njp_chai',
-        quizId: 'quiz_njp',
-        targetObjectKey: 'chai_stall',
-        width: 310,
-        height: 220,
-        offsetX: 0,
-        offsetY: 48
+        key: 'obj_chai_stall',
+        x: 2658,
+        y: 690,
+        width: 320,
+        height: 240
       }
     ],
+    platforms: [],
+    quizTrigger: {
+      key: 'obj_chai_stall',
+      x: 2658,
+      y: 690
+    },
+    quizId: 'quiz_njp',
+    quizTriggers: [],
     fxLayers: [],
     nextStageId: 'stage_2_mirik',
     musicKey: 'mus_njp',
@@ -100,11 +93,25 @@ const stages = [
     backgroundLayers: [],
     worldWidth: 4200,
     npcs: [
-      { key: 'npc_tea_worker_idle', x: 1450, y: 624, width: 92, height: 128, dialogueId: 'dialogue_darjeeling_tea_worker' },
-      { key: 'npc_tea_worker_talk', x: 3150, y: 624, width: 92, height: 128 }
+      {
+        key: 'npc_tea_worker_idle',
+        x: 1499,
+        y: 648,
+        dialogueId: 'DIALOG_STAGE_4_TEA_WORKER_IDLE'
+      },
+      {
+        key: 'npc_tea_worker_talk',
+        x: 3150,
+        y: 639,
+        dialogueId: 'DIALOG_STAGE_4_TEA_WORKER_TALK'
+      }
     ],
     ambientObjects: [
-      { key: 'obj_momo_stall', x: 3330, y: 640, width: 240, height: 240 }
+      {
+        key: 'obj_momo_stall',
+        x: 3299,
+        y: 656
+      }
     ],
     platforms: [],
     quizTriggers: [
@@ -123,15 +130,39 @@ const stages = [
     backgroundLayers: [],
     worldWidth: 2200,
     npcs: [
-      { key: 'npc_monk_idle', x: 880, y: 602, width: 64, height: 96, dialogueId: 'dialogue_monk_stage5' },
-      { key: 'npc_monk_idle', x: 1582, y: 613, width: 64, height: 96 }
+      {
+        key: 'npc_monk_idle',
+        x: 862,
+        y: 659,
+        dialogueId: 'DIALOG_STAGE_5_MONK_1'
+      },
+      {
+        key: 'npc_monk_idle',
+        x: 1615,
+        y: 665
+      }
     ],
     ambientObjects: [
-      { key: 'obj_prayer_wheel', x: 1220, y: 500, width: 88, height: 120 },
-      { key: 'obj_prayer_wheel', x: 1360, y: 500, width: 88, height: 120 },
-      { key: 'obj_prayer_wheel', x: 1500, y: 500, width: 88, height: 120 },
-      { key: 'obj_buddha_statue', x: 1000, y: 597, width: 140, height: 160 },
-      { key: 'obj_momo_stall', x: 1993, y: 626, width: 240, height: 240 }
+      {
+        key: 'obj_buddha_statue',
+        x: 1078,
+        y: 648
+      },
+      {
+        key: 'obj_prayer_wheel',
+        x: 1204,
+        y: 584
+      },
+      {
+        key: 'obj_prayer_wheel',
+        x: 1562,
+        y: 567
+      },
+      {
+        key: 'obj_momo_stall',
+        x: 2115,
+        y: 670
+      }
     ],
     platforms: [],
     quizTriggers: [
@@ -194,25 +225,24 @@ const stages = [
     npcs: [
       {
         key: 'npc_wise_traveler_idle',
-        x: 1196,
-        y: 643,
-        width: 64,
-        height: 96,
-        dialogueId: 'DIALOG_STAGE_7_SUMMIT'
+        x: 1222,
+        y: 648,
+        dialogueId: 'DIALOG_STAGE_7_TRAVELER',
+        interactionType: 'dialogue'
+      },
+      {
+        key: 'npc_mountain_guide_2',
+        x: 1860,
+        y: 648,
+        dialogueId: 'DIALOG_STAGE_7_GUIDE_2',
+        interactionType: 'finalChallenge'
       }
     ],
     ambientObjects: [],
     platforms: [],
-    quizTriggers: [
-      {
-        key: 'quiz_trigger_summit_signpost',
-        quizId: 'FINAL_CHALLENGE',
-        x: 2150,
-        y: 560,
-        width: 200,
-        height: 200
-      }
-    ],
+    quizTriggers: [],
+    quizTrigger: null,
+    quizId: null,
     fxLayers: ['fog', 'snow', 'light_rays'],
     nextStageId: null,
     musicKey: 'mus_sandakphu_summit',

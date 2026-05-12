@@ -37,12 +37,12 @@
       "path": "assets/objects/momo_stall/obj_momo_stall.png"
     },
     {
-      "key": "chai_stall",
+      "key": "obj_chai_stall",
       "path": "assets/objects/chai_stall/obj_chai_stall.png"
     },
     {
       "key": "bg_ghoom",
-      "path": "assets/backgrounds/ghoom/bg_ghoom.png"
+      "path": "assets/backgrounds/ghoom/bg_ghoom.PNG"
     },
     {
       "key": "obj_buddha_statue",
@@ -54,7 +54,11 @@
     },
     {
       "key": "bg_sandakphu_trail",
-      "path": "assets/backgrounds/sandakphu_trail.png"
+      "path": "assets/backgrounds/sandakphu_trail/sandakphu_trail.png"
+    },
+    {
+      "key": "bg_sandakphu_summit",
+      "path": "assets/backgrounds/sandakphu_summit/bg_sandakphu_summit.png"
     }
   ],
   "spritesheets": [
@@ -147,9 +151,86 @@
       "path": "assets/npcs/guide/npc_mountain_guide.png",
       "frameWidth": 64,
       "frameHeight": 96
+    },
+    {
+      "key": "npc_wise_traveler",
+      "path": "assets/npcs/guide/mountain_guide_2.png",
+      "frameWidth": 64,
+      "frameHeight": 96
+    },
+    {
+      "key": "npc_wise_traveler_talk",
+      "path": "assets/npcs/old_traveler/npc_wise_traveler_talk.png",
+      "frameWidth": 64,
+      "frameHeight": 96
+    },
+    {
+      "key": "npc_wise_traveler_idle",
+      "path": "assets/npcs/old_traveler/npc_wise_traveler_talk.png",
+      "frameWidth": 64,
+      "frameHeight": 96
+    },
+    {
+      "key": "npc_mountain_guide_2",
+      "path": "assets/npcs/guide/mountain_guide_2.png",
+      "frameWidth": 64,
+      "frameHeight": 96
     }
   ],
-  "audio": [],
+  "audio": [{
+    "key": "mus_njp",
+    "path": "assets/audio/music/mus_njp.mp3"
+  },
+  {
+    "key": "mus_mirik",
+    "path": "assets/audio/music/mus_mirik.mp3"
+  },
+  {
+    "key": "mus_rohini",
+    "path": "assets/audio/music/mus_rohini.mp3"
+  },
+  {
+    "key": "mus_darjeeling",
+    "path": "assets/audio/music/mus_darjeeling.mp3"
+  },
+  {
+    "key": "mus_ghoom",
+    "path": "assets/audio/music/mus_ghoom.mp3"
+  },
+  {
+    "key": "mus_sandakphu_trail",
+    "path": "assets/audio/music/mus_sandakphu_trail.mp3"
+  },
+  {
+    "key": "mus_sandakphu_summit",
+    "path": "assets/audio/music/mus_sandakphu_summit.mp3"
+  },
+
+
+
+{
+  "key": "sfx_jump",
+  "path": "assets/audio/sfx/"
+},
+{
+  "key": "sfx_button",
+  "path": "assets/audio/sfx/button.wav"
+},
+{
+  "key": "sfx_land",
+  "path": "assets/audio/sfx/land.wav"
+},{
+  "key": "sfx_walk",
+  "path": "assets/audio/sfx/sfx_footstep-[AudioTrimmer.com].wav"
+},
+{
+  "key": "sfx_button",
+  "path": "assets/audio/sfx/button.wav"
+},
+{
+  "key": "sfx_land",
+  "path": "assets/audio/sfx/land.wav"
+}],
   "json": [
     {
       "key": "dialogueData",

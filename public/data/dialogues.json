@@ -75,5 +75,62 @@
       "You made it to the summit.",
       "From here, the clouds are not above you anymore."
     ]
+  },
+  "DIALOG_STAGE_7_TRAVELER": {
+    "lines": [
+      {
+        "speaker": "Wise Traveler",
+        "text": "Look carefully at the mountains. At sunrise, the Kanchenjunga range becomes the Sleeping Buddha."
+      },
+      {
+        "speaker": "Wise Traveler",
+        "text": "The toy train carried you through the plains and hills, but only your own steps brought you here."
+      },
+      {
+        "speaker": "Wise Traveler",
+        "text": "Every tea garden, monastery, and winding road below is now part of the view behind you."
+      },
+      {
+        "speaker": "Wise Traveler",
+        "text": "Before you leave the clouds, reflect on what the journey taught you."
+      }
+    ],
+    "choices": null
+  },
+  "DIALOG_STAGE_7_GUIDE_2": {
+    "lines": [
+      {
+        "speaker": "Mountain Guide",
+        "text": "From Sandakphu, the Kanchenjunga range looks like a sleeping Buddha resting across the horizon."
+      },
+      {
+        "speaker": "Mountain Guide",
+        "text": "On clear mornings, travelers wait silently here just to watch the first sunlight touch the snowy peaks."
+      }
+    ],
+    "choices": null
+  },
+  "DIALOG_STAGE_7_SUMMIT": {
+    "speaker": "Wise Traveler",
+    "lines": [
+      "Look out there, Tenzing. The Sleeping Buddha finally reveals itself in the sunrise.",
+      "Kanchenjunga doesn't care how fast we climbed. It only cares that we are here to see it.",
+      "The toy train brought you part of the way, but your own feet brought you to the clouds.",
+      "Every bend in the road, every cup of chai, and every story you heard... they are all part of this view now.",
+      "Rest for a moment. The mountains have always been here, and now, they are part of you."
+    ]
+  },
+  "DIALOG_STAGE_5_MONK_1": {
+    "lines": [
+      {
+        "speaker": "Monk",
+        "text": "Welcome to Ghoom Monastery. The prayer wheels carry blessings across the mountains."
+      },
+      {
+        "speaker": "Monk",
+        "text": "Travelers often stop here to find peace before continuing toward the higher hills."
+      }
+    ],
+    "choices": null
   }
 }

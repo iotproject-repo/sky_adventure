@@ -9,8 +9,7 @@ export default class WorldBuilder {
     this.generatedForegroundKeys = new Set([
       'bench',
       'station_crates',
-      'railway_signal',
-      'chai_stall'
+      'railway_signal'
     ]);
   }
 
@@ -19,7 +18,17 @@ export default class WorldBuilder {
     this.createNpcAnimations();
     const ambientObjects = this.createAmbientObjects(stageConfig.ambientObjects ?? [], stageConfig);
     const npcs = this.createNpcPlaceholders(stageConfig.npcs ?? []);
-    const quizTriggers = this.createQuizTriggers(stageConfig.quizTriggers ?? [], ambientObjects);
+    const rawTriggers = [...(stageConfig.quizTriggers ?? [])];
+    if (stageConfig.quizTrigger) {
+      rawTriggers.push({
+        ...stageConfig.quizTrigger,
+        quizId: stageConfig.quizTrigger.quizId || stageConfig.quizId,
+        width: stageConfig.quizTrigger.width || 310,
+        height: stageConfig.quizTrigger.height || 220
+      });
+    }
+
+    const quizTriggers = this.createQuizTriggers(rawTriggers, ambientObjects);
     const platforms = this.createPlatforms(stageConfig.platforms ?? []);
     this.createStageLabel(stageConfig.displayName);
 
@@ -92,8 +101,26 @@ export default class WorldBuilder {
         ambientObject.setDepth(1);
         ambientObject.setData('configKey', objectConfig.key);
 
+        this.setupAmbientObjectDebugDragging(ambientObject);
+
         return ambientObject;
       });
+  }
+
+  setupAmbientObjectDebugDragging(object) {
+    object.setInteractive({ draggable: true });
+    this.scene.input.setDraggable(object);
+
+    object.on('drag', (pointer, dragX, dragY) => {
+      object.x = dragX;
+      object.y = dragY;
+
+      console.log('DEV PLACEMENT:', {
+        key: object.texture ? object.texture.key : (object.getData ? object.getData('configKey') : 'unknown'),
+        x: Math.round(dragX),
+        y: Math.round(dragY)
+      });
+    });
   }
 
   createQuizTriggers(triggerConfigs, ambientObjects) {
@@ -140,7 +167,8 @@ export default class WorldBuilder {
       };
     }
 
-    const target = ambientObjects.find((object) => object.getData?.('configKey') === triggerConfig.targetObjectKey);
+    const targetKey = triggerConfig.targetObjectKey || triggerConfig.key;
+    const target = ambientObjects.find((object) => object.getData?.('configKey') === targetKey);
 
     if (!target) {
       return null;
@@ -164,16 +192,28 @@ export default class WorldBuilder {
     // NPC placeholders use static Arcade Physics bodies. Static bodies stay in
     // place and are a good fit for characters who only need to be detected.
     return npcs.map((npcConfig) => {
-      if (npcConfig.key === 'inspector' && this.scene.textures.exists('npc_inspector')) {
-        return this.createInspectorNpc(npcConfig);
-      }
+      try {
+        console.log('Creating NPC:', npcConfig.key);
+        console.log('Texture exists:', this.scene.textures.exists(npcConfig.key));
 
-      if ((npcConfig.key.startsWith('npc_tea_worker') || npcConfig.key.startsWith('npc_monk')) && (this.scene.textures.exists(npcConfig.key) || this.scene.textures.exists(`${npcConfig.key}_idle`))) {
-        return this.createTeaWorkerNpc(npcConfig);
-      }
+        if (!this.scene.textures.exists(npcConfig.key)) {
+          console.warn(`WorldBuilder: missing NPC texture: ${npcConfig.key}`);
+        }
 
-      return this.createGenericNpc(npcConfig);
-    });
+        if (npcConfig.key === 'inspector' && this.scene.textures.exists('npc_inspector')) {
+          return this.createInspectorNpc(npcConfig);
+        }
+
+        if ((npcConfig.key.startsWith('npc_tea_worker') || npcConfig.key.startsWith('npc_monk')) && (this.scene.textures.exists(npcConfig.key) || this.scene.textures.exists(`${npcConfig.key}_idle`))) {
+          return this.createTeaWorkerNpc(npcConfig);
+        }
+
+        return this.createGenericNpc(npcConfig);
+      } catch (error) {
+        console.error(`WorldBuilder: failed to create NPC "${npcConfig.key}":`, error);
+        return null;
+      }
+    }).filter(Boolean);
   }
 
   createGenericNpc(npcConfig) {
@@ -189,12 +229,39 @@ export default class WorldBuilder {
     const npc = this.scene.physics.add.staticSprite(npcConfig.x, npcConfig.y + 8, textureKey);
 
     npc.setOrigin(0.5, 1);
-    npc.setDisplaySize(npcConfig.width, npcConfig.height);
+    
+    // NPCs expect 64x96 standard dimensions if not specified in config.
+    const width = npcConfig.width ?? 64;
+    const height = npcConfig.height ?? 96;
+    npc.setDisplaySize(width, height);
+    
     npc.refreshBody();
     this.configureNpcInteraction(npc, npcConfig);
     this.playNpcIdleAnimation(npc, animationKey);
+    this.setupNpcDebugDragging(npc);
 
     return npc;
+  }
+
+  setupNpcDebugDragging(npc) {
+    npc.setInteractive({ draggable: true });
+    this.scene.input.setDraggable(npc);
+
+    npc.on('drag', (pointer, dragX, dragY) => {
+      npc.x = dragX;
+      npc.y = dragY;
+
+      // Update physics body if it's a static sprite
+      if (npc.body && npc.body.type === 1) { // 1 is STATIC
+        npc.refreshBody();
+      }
+
+      console.log('DEV PLACEMENT:', {
+        key: npc.texture.key,
+        x: Math.round(dragX),
+        y: Math.round(dragY)
+      });
+    });
   }
 
   resolveNpcTextureKey(npcConfig) {
@@ -216,7 +283,9 @@ export default class WorldBuilder {
         npcConfig.key === 'npc_monk_idle' ||
         npcConfig.key === 'npc_monk_talk' ||
         npcConfig.key === 'npc_mountain_guide_idle' ||
-        npcConfig.key === 'npc_mountain_guide_talk') {
+        npcConfig.key === 'npc_mountain_guide_talk' ||
+        npcConfig.key === 'npc_wise_traveler_idle' ||
+        npcConfig.key === 'npc_wise_traveler_talk') {
       return npcConfig.key;
     }
 
@@ -273,6 +342,9 @@ export default class WorldBuilder {
     this.createNpcIdleAnimation('npc_monk_talk', 'npc_monk_talk', 3);
     this.createNpcIdleAnimation('npc_mountain_guide_idle', 'npc_mountain_guide_idle', 3);
     this.createNpcIdleAnimation('npc_mountain_guide_talk', 'npc_mountain_guide_talk', 3);
+    this.createNpcIdleAnimation('npc_mountain_guide_2', 'npc_mountain_guide_2_idle', 3);
+    this.createNpcIdleAnimation('npc_wise_traveler_idle', 'npc_wise_traveler_idle', 3);
+    this.createNpcIdleAnimation('npc_wise_traveler_talk', 'npc_wise_traveler_talk', 3);
   }
 
   createNpcIdleAnimation(textureKey, animationKey, endFrame = 3) {
@@ -299,12 +371,18 @@ export default class WorldBuilder {
     const npc = this.scene.physics.add.staticSprite(npcConfig.x, npcConfig.y + 8, 'npc_inspector');
 
     npc.setOrigin(0.5, 1);
-    npc.setDisplaySize(npcConfig.width, npcConfig.height);
+    
+    // Default to standard 64x112 for the inspector if not specified.
+    const width = npcConfig.width ?? 64;
+    const height = npcConfig.height ?? 112;
+    npc.setDisplaySize(width, height);
+    
     npc.refreshBody();
     // Inspector sits above the player and decorative props, which keeps the
     // NPC readable during gameplay and interactions.
     this.configureNpcInteraction(npc, npcConfig);
     npc.anims.play('npc_inspector_idle');
+    this.setupNpcDebugDragging(npc);
 
     return npc;
   }
@@ -314,11 +392,17 @@ export default class WorldBuilder {
     const npc = this.scene.physics.add.sprite(npcConfig.x, npcConfig.y + 8, textureKey);
 
     npc.setOrigin(0.5, 1);
-    npc.setDisplaySize(npcConfig.width, npcConfig.height);
+    
+    // Default to standard 64x96 if dimensions are missing from stage config.
+    const width = npcConfig.width ?? 64;
+    const height = npcConfig.height ?? 96;
+    npc.setDisplaySize(width, height);
+    
     npc.setImmovable(true);
     npc.body.setAllowGravity(false);
     this.configureNpcInteraction(npc, npcConfig);
     this.playNpcIdleAnimation(npc, npcConfig.key);
+    this.setupNpcDebugDragging(npc);
 
     return npc;
   }
@@ -327,12 +411,18 @@ export default class WorldBuilder {
     npc.setDepth(11);
     npc.setData('type', 'npc');
     npc.setData('dialogueId', npcConfig.dialogueId);
+    npc.setData('quizId', npcConfig.quizId);
+    npc.setData('interactionType', npcConfig.interactionType);
     npc.type = 'npc';
     npc.dialogueId = npcConfig.dialogueId;
+    npc.quizId = npcConfig.quizId;
+    npc.interactionType = npcConfig.interactionType || 'dialogue';
     npc.interaction = {
       type: npc.type,
       key: npcConfig.key,
       dialogueId: npc.dialogueId,
+      quizId: npc.quizId,
+      interactionType: npc.interactionType,
       range: npcConfig.interactionRange ?? 120
     };
   }
@@ -349,10 +439,15 @@ export default class WorldBuilder {
     if (this.scene.textures.exists(config.key)) {
       // Real art uses the same x/y/width/height values as placeholders, so
       // layout tuning can happen entirely in stages.js.
-      return this.scene.add
+      const image = this.scene.add
         .image(config.x, config.y, config.key)
-        .setOrigin(0.5, 1)
-        .setDisplaySize(config.width, config.height);
+        .setOrigin(0.5, 1);
+
+      if (config.width && config.height) {
+        image.setDisplaySize(config.width, config.height);
+      }
+
+      return image;
     }
 
     if (this.generatedForegroundKeys.has(config.key)) {
@@ -373,11 +468,16 @@ export default class WorldBuilder {
 
     // setOrigin(0.5, 1) pins the bottom center of the prop to its configured
     // x/y point, which keeps benches, crates, signals, and stalls grounded.
-    return this.scene.add
+    const image = this.scene.add
       .image(config.x, config.y, textureKey)
       .setOrigin(0.5, 1)
-      .setDisplaySize(config.width, config.height)
       .setDepth(1);
+
+    if (config.width && config.height) {
+      image.setDisplaySize(config.width, config.height);
+    }
+
+    return image;
   }
 
   generateForegroundTexture(textureKey, config) {
@@ -399,7 +499,7 @@ export default class WorldBuilder {
       case 'railway_signal':
         this.drawRailwaySignalTexture(graphics, width, height);
         break;
-      case 'chai_stall':
+      case 'obj_chai_stall':
         this.drawChaiStallTexture(graphics, width, height);
         break;
       default:
@@ -444,7 +544,7 @@ export default class WorldBuilder {
       case 'distant_tracks':
         this.buildTracksPlaceholder(placeholder, config);
         break;
-      case 'chai_stall':
+      case 'obj_chai_stall':
         this.buildChaiStallPlaceholder(placeholder, config);
         break;
       default:

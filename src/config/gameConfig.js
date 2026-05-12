@@ -5,6 +5,9 @@ import MenuScene from '../scenes/MenuScene.js';
 import GameScene from '../scenes/GameScene.js';
 import DialogueScene from '../scenes/DialogueScene.js';
 import QuizScene from '../scenes/QuizScene.js';
+import FinalChoiceScene from '../scenes/FinalChoiceScene.js';
+import GameOverScene from '../scenes/GameOverScene.js';
+import UIScene from '../scenes/UIScene.js';
 
 // Shared Phaser configuration for the whole game.
 // Phaser reads this object once when new Phaser.Game() is created.
@@ -29,7 +32,7 @@ const gameConfig = {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH
   },
-  scene: [BootScene, PreloadScene, MenuScene, GameScene, DialogueScene, QuizScene]
+  scene: [BootScene, PreloadScene, MenuScene, GameScene, DialogueScene, QuizScene, FinalChoiceScene, GameOverScene, UIScene]
 };
 
 export default gameConfig;

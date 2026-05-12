@@ -160,5 +160,41 @@
         "correct": false
       }
     ]
+  },
+  "FINAL_CHALLENGE": {
+    "type": "multi",
+    "title": "Final Reflection",
+    "questions": [
+      {
+        "prompt": "What did the tea gardens of Darjeeling teach Tenzing?",
+        "options": [
+          "Patience and mountain life",
+          "How to build railways",
+          "How to row boats",
+          "How to survive snowstorms"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "prompt": "What feeling did Ghoom Monastery represent?",
+        "options": [
+          "Peace and compassion",
+          "Fear and isolation",
+          "Trade and business",
+          "Competition and speed"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "prompt": "What does reaching Sandakphu ultimately mean for Tenzing?",
+        "options": [
+          "The clouds are now part of him",
+          "The journey is over forever",
+          "The mountains defeated him",
+          "The toy train completed the climb"
+        ],
+        "correctIndex": 0
+      }
+    ]
   }
 }

@@ -11,9 +11,12 @@ export default class QuizScene extends Phaser.Scene {
     this.quizId = data.quizId ?? data.quiz?.quizId ?? null;
     this.stageId = data.stageId ?? null;
     this.quiz = data.quiz ?? null;
+    this.isFinalChallenge = data.isFinalChallenge ?? false;
     this.quizManager = null;
+    this.currentQuestionIndex = 0;
     this.selectedIndex = 0;
     this.answerButtons = [];
+    this.questionText = null;
     this.resultHandled = false;
     this.hasShutdown = false;
     this.handleSceneShutdown = this.handleSceneShutdown.bind(this);
@@ -23,7 +26,7 @@ export default class QuizScene extends Phaser.Scene {
     this.quizManager = new QuizManager(this.cache.json.get('quizData') ?? {});
     this.quiz = this.quiz ?? this.quizManager.getQuiz(this.quizId);
 
-    if (!this.quiz) {
+    if (!this.quiz || !this.quiz.questions?.length) {
       this.closeQuiz(false, null);
       return;
     }
@@ -32,16 +35,15 @@ export default class QuizScene extends Phaser.Scene {
     this.bindInput();
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, this.handleSceneShutdown);
     this.events.once(Phaser.Scenes.Events.DESTROY, this.handleSceneShutdown);
+    this.showQuestion(0);
   }
 
   createLayout() {
     const { width, height } = this.scale;
 
-    // The placeholder quiz UI is deliberately simple and text-first so the
-    // underlying data flow can be tested before any visual polish is added.
     this.add.rectangle(width / 2, height / 2, width - 180, 340, 0x000000, 0.88);
 
-    this.add
+    this.titleText = this.add
       .text(width / 2, height / 2 - 130, this.quiz.title, {
         fontFamily: 'Arial, sans-serif',
         fontSize: '30px',
@@ -49,8 +51,8 @@ export default class QuizScene extends Phaser.Scene {
       })
       .setOrigin(0.5);
 
-    this.add
-      .text(width / 2, height / 2 - 80, this.quiz.question, {
+    this.questionText = this.add
+      .text(width / 2, height / 2 - 80, '', {
         fontFamily: 'Arial, sans-serif',
         fontSize: '24px',
         color: '#ffffff',
@@ -67,11 +69,25 @@ export default class QuizScene extends Phaser.Scene {
         color: '#ffffff'
       })
       .setOrigin(0.5);
+  }
 
-    this.answerButtons = this.quiz.options.map((option, index) => {
-      const y = height / 2 - 20 + index * 44;
+  showQuestion(index) {
+    const questionData = this.quiz.questions[index];
+    if (!questionData) return;
+
+    this.currentQuestionIndex = index;
+    this.selectedIndex = 0;
+    this.questionText.setText(questionData.question);
+
+    // Clear old buttons
+    this.answerButtons.forEach(btn => btn.destroy());
+    this.answerButtons = [];
+
+    const { width, height } = this.scale;
+    this.answerButtons = questionData.options.map((option, i) => {
+      const y = height / 2 - 20 + i * 44;
       const button = this.add
-        .text(width / 2, y, `${index + 1}. ${option.label}`, {
+        .text(width / 2, y, `${i + 1}. ${option.label}`, {
           fontFamily: 'Arial, sans-serif',
           fontSize: '22px',
           color: '#ffffff',
@@ -92,7 +108,6 @@ export default class QuizScene extends Phaser.Scene {
   }
 
   bindInput() {
-    // Keyboard-only selection keeps the flow simple and easy to test.
     this.input.keyboard.on('keydown-UP', this.moveSelectionUp, this);
     this.input.keyboard.on('keydown-DOWN', this.moveSelectionDown, this);
     this.input.keyboard.on('keydown-ONE', this.selectFirstAnswer, this);
@@ -119,11 +134,12 @@ export default class QuizScene extends Phaser.Scene {
       return;
     }
 
-    if (!this.quiz?.options?.length) {
+    const options = this.quiz.questions[this.currentQuestionIndex]?.options;
+    if (!options?.length) {
       return;
     }
 
-    this.selectedIndex = Phaser.Math.Wrap(this.selectedIndex - 1, 0, this.quiz.options.length);
+    this.selectedIndex = Phaser.Math.Wrap(this.selectedIndex - 1, 0, options.length);
     this.updateSelection();
   }
 
@@ -132,16 +148,18 @@ export default class QuizScene extends Phaser.Scene {
       return;
     }
 
-    if (!this.quiz?.options?.length) {
+    const options = this.quiz.questions[this.currentQuestionIndex]?.options;
+    if (!options?.length) {
       return;
     }
 
-    this.selectedIndex = Phaser.Math.Wrap(this.selectedIndex + 1, 0, this.quiz.options.length);
+    this.selectedIndex = Phaser.Math.Wrap(this.selectedIndex + 1, 0, options.length);
     this.updateSelection();
   }
 
   selectAnswer(index) {
-    if (!this.quiz?.options?.[index]) {
+    const options = this.quiz.questions[this.currentQuestionIndex]?.options;
+    if (!options?.[index]) {
       return;
     }
 
@@ -162,12 +180,20 @@ export default class QuizScene extends Phaser.Scene {
       return;
     }
 
-    if (!this.quiz?.options?.length) {
+    const options = this.quiz.questions[this.currentQuestionIndex]?.options;
+    if (!options?.length) {
       return;
     }
 
-    const chosenOption = this.quiz.options[this.selectedIndex];
+    const chosenOption = options[this.selectedIndex];
     const isCorrect = Boolean(chosenOption?.correct);
+
+    if (isCorrect) {
+      if (this.currentQuestionIndex + 1 < this.quiz.questions.length) {
+        this.showQuestion(this.currentQuestionIndex + 1);
+        return;
+      }
+    }
 
     this.game.events.emit('quiz-result', {
       stageId: this.stageId,
@@ -188,10 +214,18 @@ export default class QuizScene extends Phaser.Scene {
     this.resultHandled = true;
     this.cleanupInput();
 
+    if (this.isFinalChallenge) {
+      this.game.events.emit('final-challenge-complete', {
+        passed: correct,
+        score: this.currentQuestionIndex + (correct ? 1 : 0) // Simple score
+      });
+    }
+
     this.game.events.emit('quiz-closed', {
       quizId: this.quiz?.quizId ?? this.quizId,
       stageId: this.stageId,
       correct,
+      isFinalChallenge: this.isFinalChallenge,
       selectedLabel: selectedOption?.label ?? ''
     });
 
